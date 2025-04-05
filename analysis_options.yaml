@@ -1,4 +1,165 @@
+# Include Flutter's recommended lints
 include: package:flutter_lints/flutter.yaml
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+# Analyzer Settings
+analyzer:
+  language:
+    strict-casts: true        # Disallow implicit casts for better type safety.
+    strict-inference: true    # Require type annotations for better type checking.
+    strict-raw-types: true    # Ensure that generics are properly typed.
+
+  errors:
+    missing_required_param: error     # Treat missing required parameters as errors.
+    missing_return: error             # Treat missing return statements as errors.
+    unused_local_variable: warning    # Warn about unused local variables.
+    unused_import: warning            # Warn about unused imports.
+    dead_code: warning                # Warn about unreachable code.
+    todo: ignore                      # Ignore TODO comments; adjust as needed.
+    invalid_assignment: warning       # Warn about assigning to a variable that is marked final.
+    must_be_immutable: error          # Ensure classes that extend StatelessWidget or StatefulWidget are immutable.
+    unused_element: warning           # Warn when code is defined but never used.
+
+  exclude:
+    - "**/*.g.dart"                   # Exclude generated files from analysis.
+    - "**/*.freezed.dart"
+    - "**/*.freezed.test.dart"
+    - "**/*.config.dart"
+    - "**/*.mock.dart"
+    - "**/*_generated.dart"
+
+# Linter Rules
+linter:
+  rules:
+    # SOLID Principles
+    # Single Responsibility Principle (SRP): Ensure classes and methods do only one thing.
+    - one_member_abstracts  # Ensure abstract classes have only one method.
+    - avoid_multiple_awaits_in_different_methods  # Avoid using multiple awaits in different methods.
+    - class_method_length  # Limit the length of methods, promoting single responsibility.
+
+    # Open/Closed Principle (OCP): Classes should be open for extension, but closed for modification.
+    - prefer_extension_methods  # Prefer extending existing classes over modifying them.
+    - avoid_classes_with_only_static_members  # Avoid creating classes that only contain static members.
+
+    # Liskov Substitution Principle (LSP): Ensure that derived classes can be used interchangeably with base classes.
+    - avoid_abstract_class_inheriting_non_abstract_class  # Abstract classes should not inherit from non-abstract classes.
+    - avoid_subtypes_of_catch_error  # Avoid subclasses of `Error` and `Exception`.
+
+    # Interface Segregation Principle (ISP): Ensure that classes have small, cohesive interfaces.
+    - avoid_interfaces_with_many_methods  # Avoid interfaces with too many methods.
+    - prefer_isolates_to_multithreading  # Prefer isolates for concurrent processing instead of threading.
+
+    # Dependency Inversion Principle (DIP): High-level modules should not depend on low-level modules.
+    - depend_on_inherited_widget  # Avoid direct dependency on inherited widget for better modularity.
+    - avoid_implementation_imports  # Avoid direct imports of implementation files.
+    - prefer_singletons_in_service_locator  # Use service locators like GetIt in place of direct dependencies.
+
+    # DRY (Don't Repeat Yourself) Principle
+    - avoid_redundant_string_literals  # Avoid using redundant string literals.
+    - avoid_duplicate_keys_in_map_literals  # Avoid repeating keys in map literals.
+    - avoid_redundant_imports  # Avoid unnecessary import repetition.
+    - avoid_redundant_setters  # Avoid defining setters that repeat logic.
+
+    # Code Consistency and Best Practices
+    - always_declare_return_types  # Enforce the declaration of return types.
+    - always_put_required_named_parameters_first  # Put required named parameters first.
+    - annotate_overrides  # Ensure methods that override others are annotated.
+    - avoid_empty_else  # Avoid empty else blocks.
+    - avoid_function_literals_in_foreach_calls  # Avoid function literals in forEach loops.
+    - avoid_field_initializers_in_const_classes  # Don't initialize fields in const classes.
+    - avoid_print  # Avoid print statements; prefer logging.
+    - avoid_shadowing_type_parameters  # Avoid shadowing of type parameters.
+    - use_rethrow_when_possible  # Prefer rethrowing caught exceptions.
+    - avoid_return_types_on_setters  # Avoid return types in setters.
+    - avoid_empty_catches  # Avoid empty catch blocks.
+
+    # Collection and Iterable Best Practices
+    - prefer_collection_literals  # Use collection literals.
+    - prefer_spread_collections  # Use spread operator for collections.
+    - prefer_for_elements_to_map_fromIterable  # Use for elements in iterable for better performance.
+
+    # Null Safety and Type Safety Best Practices
+    - avoid_null_checks_in_equality_operators  # Avoid using null checks in equality operators.
+    - avoid_positional_boolean_parameters  # Avoid boolean parameters in function.
+    - prefer_null_aware_method_calls  # Encourage null-aware calls (?. and ??).
+    - avoid_returning_null  # Avoid returning null unnecessarily.
+    - avoid_bool_literals_in_conditional_expressions  # Avoid using boolean literals in conditionals.
+    - always_require_non_null_named_parameters  # Always require non-nullable named parameters.
+
+    # Code Formatting and Structural Organization
+    - eol_at_end_of_file  # Ensure files end with a newline.
+    - file_names  # Ensure consistent file naming convention.
+    - prefer_generic_function_type_aliases  # Prefer generic function type aliases for better readability.
+    - sort_child_properties_last  # Sort child properties in the last.
+    - sort_constructors_first  # Sort constructors before methods.
+    - sort_unnamed_constructors_first  # Sort unnamed constructors first.
+
+    # Performance Optimizations
+    - avoid_slow_async_io  # Avoid slow async operations.
+    - prefer_interpolation_to_compose_strings  # Prefer string interpolation over concatenation.
+    - join_return_with_assignment  # Join return with variable assignment for clarity.
+    - use_string_buffers  # Use StringBuffer instead of string concatenation for performance.
+
+    # Miscellaneous Optimization and Clean Code Practices
+    - unnecessary_const  # Avoid unnecessary use of const.
+    - unnecessary_this  # Avoid unnecessary `this` keyword.
+    - unnecessary_statements  # Avoid unnecessary statements.
+    - unnecessary_parenthesis  # Avoid unnecessary parentheses.
+    - unnecessary_lambdas  # Avoid unnecessary lambda functions.
+    - unnecessary_null_checks  # Avoid unnecessary null checks.
+    - unnecessary_null_in_if_null_operators  # Avoid unnecessary null in `??` operators.
+    - cast_nullable_to_non_nullable  # Avoid casting nullable types to non-nullable.
+
+    # Advanced Flutter-Specific Best Practices
+    - use_key_in_widget_constructors  # Ensure the usage of key in widget constructors.
+    - prefer_const_declarations  # Prefer const declarations where possible.
+    - use_full_hex_values_for_flutter_colors  # Avoid shorthand hex color codes.
+    - avoid_web_libraries_in_flutter  # Avoid web-specific libraries in Flutter code.
+    - avoid_redundant_argument_values  # Avoid passing redundant default argument values.
+    - use_build_context_synchronously  # Avoid async calls that use `BuildContext` directly.
+
+    # Dependency Injection (GetIt or similar service locators)
+    - get_it:lint:
+        - prefer_final_locals  # Ensure `final` is used for locals.
+        - prefer_const_constructors_in_immutables  # Use const constructors for immutable classes.
+
+    # Ensure Proper Stream and Subscription Management
+    - cancel_subscriptions  # Ensure subscriptions are properly canceled when not needed.
+    - await_only_futures  # Ensure `await` is used only with Future values.
+
+    # Unit and Widget Testing Best Practices
+    - test_types_in_equals  # Ensure types are tested correctly in equality checks.
+    - use_test_throws_matchers  # Prefer using `throws` matchers in test cases.
+    - prefer_asserts_in_initializer_lists  # Prefer asserts in constructor initializer lists.
+
+    # Advanced Project Structure and Code Quality
+    - prefer_relative_imports  # Use relative imports in the project.
+    - directives_ordering  # Ensure correct ordering of import directives.
+    - implementation_imports  # Avoid direct imports of implementation files.
+    - avoid_relative_lib_imports  # Avoid using relative imports outside the `lib` folder.
+    - avoid_getters_and_setters  # Avoid unnecessary getters and setters.
+
+    # Additional Best Practices
+    - always_declare_return_types  # Always declare return types explicitly.
+    - avoid_method_invocations_in_getters  # Avoid invoking methods in getters.
+    - use_final_for_private_fields  # Enforce the use of `final` for private fields.
+    - prefer_final_in_for_each  # Enforce `final` in `forEach` loop variables.
+    - no_adjacent_strings_in_list  # Prevent adjacent string literals in list literals.
+    - no_runtimeType_toString  # Avoid using `.runtimeType.toString()`.
+    - prefer_single_quotes  # Prefer using single quotes for strings where possible.
+    - avoid_escaping_inner_quotes  # Avoid unnecessary escaping of inner quotes in strings.
+
+    # Error Handling and Exception Management
+    - throw_in_finally  # Throw exceptions in `finally` blocks cautiously.
+    - control_flow_in_finally  # Ensure correct control flow in `finally` blocks.
+    - avoid_excessive_catching  # Avoid catching exceptions excessively.
+    - avoid_throwing_null  # Avoid throwing null as an exception.
+
+    # Documentation Standards
+    - comment_references  # Enforce comments for reference variables.
+    - package_api_docs  # Enforce documentation on public API classes and methods.
+    - slash_for_doc_comments  # Use proper comment format (`///`).
+
+    # Code Clarity
+    - avoid_private_typedef_functions  # Avoid using typedefs for private functions.
+    - avoid_return_types_on_setters  # Avoid return types for setters.
+    - avoid_nullable_return_types_on_setters  # Avoid nullable return types for setters.
