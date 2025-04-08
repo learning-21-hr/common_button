@@ -76,7 +76,8 @@ void main() {
     // Tap again, but the button should be disabled after first tap for 10 seconds
     await tester.tap(find.byKey(testKey));
     await tester.pumpAndSettle(const Duration(seconds: 15)); // Wait again for the tap response
-    expect(tester.widget<CommonButton>(find.byKey(testKey)).onTap, isNot(equals(null))); // onTap should be not null after disable
+    expect(tester.widget<CommonButton>(find.byKey(testKey)).onTap,
+        isNot(equals(null))); // onTap should be not null after disable
   });
 
   testWidgets('Button should respect makeDisabled property', (WidgetTester tester) async {
@@ -126,7 +127,8 @@ void main() {
 
     // Check that the icon path and color are applied correctly
     expect(svgPicture.colorFilter, isNotNull); // Ensure the colorFilter is not null
-    expect(svgPicture.colorFilter, equals(const ColorFilter.mode(Colors.red, BlendMode.srcIn))); // Verify color is applied
+    expect(
+        svgPicture.colorFilter, equals(const ColorFilter.mode(Colors.red, BlendMode.srcIn))); // Verify color is applied
   });
 
   testWidgets('Icon should not be displayed when iconPath is null', (WidgetTester tester) async {
@@ -178,7 +180,6 @@ void main() {
           onTap: () {},
           label: 'Test Button',
           buttonSize: const Size(100, 100),
-          suffixIcon: null,  // No icon provided
         ),
       ),
     ));
@@ -222,8 +223,7 @@ void main() {
   testWidgets('Prefix Icon should be displayed when prefixIcon is provided', (WidgetTester tester) async {
     // Arrange: Provide a valid prefixIcon, size, and color for testing
     const iconPath = 'assets/icons/test_icon.svg'; // Ensure this path is correct and available in assets
-    const size = Size(24, 24);  // Set the size for the prefix icon
-    const color = Colors.blue;  // Set the color for the prefix icon
+    const color = Colors.blue; // Set the color for the prefix icon
 
     // Act: Create a widget to test the _buildIcon method indirectly by using the CommonButton
     await tester.pumpWidget(MaterialApp(
@@ -244,8 +244,8 @@ void main() {
     // Check if the SvgPicture's color filter is applied correctly
     final svgPicture = tester.widget<SvgPicture>(find.byType(SvgPicture));
 
-    expect(color, color);  // Verify that the color is applied correctly
-    expect(BlendMode.srcIn, BlendMode.srcIn);  // Verify the blend mode is srcIn
+    expect(color, color); // Verify that the color is applied correctly
+    expect(BlendMode.srcIn, BlendMode.srcIn); // Verify the blend mode is srcIn
 
     // Verify the icon size is applied correctly
     expect(svgPicture.height, null);
@@ -260,7 +260,6 @@ void main() {
           onTap: () {},
           label: 'Test Button',
           buttonSize: const Size(100, 100),
-          prefixIcon: null,  // No prefixIcon provided
         ),
       ),
     ));
@@ -298,14 +297,14 @@ void main() {
 
     // Assert: Check if the LinearGradient is applied in the decoration
     final container = tester.widget<Container>(find.byType(Container));
-    final decoration = container.decoration as BoxDecoration;
+    final decoration = container.decoration! as BoxDecoration;
 
     // Check if the gradient is applied
     expect(decoration.gradient, isA<LinearGradient>());
-    final linearGradient = decoration.gradient as LinearGradient;
+    final linearGradient = decoration.gradient! as LinearGradient;
 
     // Verify the colors in the gradient
-    expect(linearGradient.colors, gradientColors);  // Ensure the correct gradient colors are used
+    expect(linearGradient.colors, gradientColors); // Ensure the correct gradient colors are used
   });
 
   testWidgets('No gradient should be applied when gradientColors is null', (WidgetTester tester) async {
@@ -316,17 +315,16 @@ void main() {
           onTap: () {},
           label: 'Test Button',
           buttonSize: const Size(100, 50),
-          gradientColors: null,  // No gradient provided
         ),
       ),
     ));
 
     // Assert: Check if no gradient is applied in the decoration
     final container = tester.widget<Container>(find.byType(Container));
-    final decoration = container.decoration as BoxDecoration;
+    final decoration = container.decoration! as BoxDecoration;
 
     // Ensure gradient is not applied
-    expect(decoration.gradient, isNull);  // Gradient should be null
+    expect(decoration.gradient, isNull); // Gradient should be null
   });
 
   testWidgets('No gradient should be applied when gradientColors is empty', (WidgetTester tester) async {
@@ -337,7 +335,7 @@ void main() {
           onTap: () {},
           label: 'Test Button',
           buttonSize: const Size(100, 50),
-          gradientColors: [],  // Empty gradient list
+          gradientColors: const [], // Empty gradient list
         ),
       ),
     ));
@@ -347,9 +345,8 @@ void main() {
     final decoration = container.decoration! as BoxDecoration;
 
     // Ensure gradient is not applied
-    expect(decoration.gradient, isNull);  // Gradient should be null
+    expect(decoration.gradient, isNull); // Gradient should be null
   });
-
 }
 
 // A helper widget that calls _buildIcon
@@ -361,14 +358,13 @@ Widget _buildIconTest({required String? iconPath, required Size size, required C
 Widget _buildIcon({required String? iconPath, required Size size, required Color? color}) {
   return iconPath != null
       ? SizedBox(
-    height: size.height,
-    width: size.width,
-    child: SvgPicture.asset(
-      iconPath,
-      fit: BoxFit.fill,
-      colorFilter: color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
-    ),
-  )
+          height: size.height,
+          width: size.width,
+          child: SvgPicture.asset(
+            iconPath,
+            fit: BoxFit.fill,
+            colorFilter: color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+          ),
+        )
       : const SizedBox.shrink();
-
 }
